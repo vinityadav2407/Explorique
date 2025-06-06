@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorique</title>
+</head>
+<body>
+    <h3> creat your new listing</h3>
+    <form method="post"  action="/listings">
+        <input type="text" placeholder="enter your title" name="listing[title]"><br>
+
+         <textarea type="text"  name="listing[discription]">enter your discription.. </textarea><br>
+
+        <input type="text" placeholder="Enter your image filename" name="listing[image][filename]"><br>
+
+        <input type="text" placeholder="Enter your image URL" name="listing[image][url]"><br>
+
+
+         <input type="number" placeholder="enter your price" name="listing[price]"><br>
+
+         <input type="text" placeholder="enter your location" name="listing[location]"><br>
+
+          <input type="text" placeholder="enter your country" name="listing[country]"><br>
+          <button>add</button>
+    </form>
+</body>
+</html>

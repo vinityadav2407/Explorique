@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorique Listings </title>
+</head>
+<body>
+    <h3>All listings !! </h3>
+<form method="get" action="/listings/new">
+    <button>creat new listing</button>
+</form>
+
+    <ul> 
+      <% for(let listing of allListing){%>
+        
+          <a href="/listings/<%=listing._id%>"><li> <%= listing.title%></li> </a>
+        
+      <% }%>
+
+    </ul>
+   
+</body>
+</html>

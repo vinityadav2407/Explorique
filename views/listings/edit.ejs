@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorique</title>
+</head>
+<body>
+
+     <h3> Edit your  listing</h3>
+    <form method="post"  action="/listings/<%=listing._id%>?_method=PATCH">
+        <input type="text" value="<%=listing.title%>" name="listing[title]"><br>
+            
+       <textarea type="text"   name="listing[discription]"><%= listing.discription %></textarea><br>
+
+
+
+        <input type="text" value="<%=listing.image.filename%>"  name="listing[image][filename]"><br>
+
+        <input type="text"  value="<%=listing.image.url%>"  name="listing[image][url]"><br>
+
+
+         <input type="number"  value="<%=listing.price%>" name="listing[price]"><br>
+
+         <input type="text"  value="<%=listing.location%>" name="listing[location]"><br>
+
+          <input type="text"  value="<%=listing.country%>" name="listing[country]"><br><br>
+          <button>submit</button>
+    </form>
+
+</body>
+</html>
