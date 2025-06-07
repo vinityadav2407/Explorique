@@ -5,11 +5,14 @@ const Listing=require("./models/listing");
 
 const methodOverride=require("method-override");
 const path=require("path");
+const ejsMate=require("ejs-mate");
+
 
 app.listen(8080,()=>{
     console.log("server is listening on the port:8080");
 })
 
+app.engine('ejs', ejsMate);
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.static(path.join(__dirname,"public")));

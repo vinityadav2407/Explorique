@@ -1,24 +1,50 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explorique Listings </title>
-</head>
-<body>
-    <h3>All listings !! </h3>
-<form method="get" action="/listings/new">
-    <button>creat new listing</button>
-</form>
+</head> -->
+<% layout('/layouts/boilerplate') %>
 
-    <ul> 
-      <% for(let listing of allListing){%>
+
+<body>
+    <!-- <h3>All listings !! </h3> -->
+     <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1">
+       <% for(let listing of allListing){%>
+        <a href="/listings/<%=listing._id%> " class="listing-links"> 
+  <div class="card" >
+     <img src="<%= listing.image.url%>" class="card-img-top" alt="listing-img" style="height: 20rem;">
+<div class="card-img-overlay"> click it
+    <!-- <h5 class="card-title">Card title</h5>
+    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    <p class="card-text"><small>Last updated 3 mins ago</small></p> -->
+  </div>
+
+     <div class="card-body">
+
+       <p class="card-text">  <b><%= listing.title%> </b><br>
+        <%=listing.price.toLocaleString("en-IN")%>/night
+       </p>
+       <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+      </div>
+
+             </a>
+     
+       <% }%>
+     </div>
+
+    
+      <!-- <% for(let listing of allListing){%>
         
           <a href="/listings/<%=listing._id%>"><li> <%= listing.title%></li> </a>
         
-      <% }%>
+      <% }%> -->
 
-    </ul>
+        
+
+    
    
 </body>
-</html>
+<!-- </html> -->

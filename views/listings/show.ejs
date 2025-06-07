@@ -1,24 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explorique</title>
-</head>
+
+
+
+<% layout('/layouts/boilerplate') %>
+
 <body>
-    <h3>you listing Details: </h3>
+
+    <div class="row">
+        <div class="col-8 offset-2">
+                
+            <h2 class="show-listing mb-4 mt-4"> Listing Details: </h2>
      
-    <ul>
+                 <img src="<%=listing.image.url%>" class="card-img-top show-card" alt="listingimage">
+                <div class="card-body">
+                     <h5 class="card-title show-listing"><%=listing.title%></h5>
+                     <p class="card-text">
+                       <%=listing.discription%><br>
+                        &#8377;<%= listing.price.toLocaleString("en-IN") %><br>
+                         <%=listing.location%><br>
+                        <%=listing.country%><br>
+                    </p>
+             </div>
+            
+             <div class=" show-btn ">
+                <div class="btn1 mt-4">
+                   <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark "> Edit the listing</a> <br><br>
+                </div>
+                <div class="btn2 offset-1 mt-4">
+                   <form method="post" action="/listings/<%=listing._id%>?_method=DELETE" >
+                       <button class="btn btn-dark add-btn ">delete listing</button>
+                 </form>
+                </div>
+                 
+             </div>
+
+
+        </div>
+    </div>
+    
+
+    <!-- <ul>
          <li><%=listing.title%></li>
          <li><%=listing.discription%></li>
          <li> &#8377;<%= listing.price.toLocaleString("en-IN") %></li>
 
         <li><%=listing.location%></li> 
         <li><%=listing.country%></li>
-    </ul>
-    <a href="/listings/<%=listing._id%>/edit"> Edit the listing</a> <br><br>
-    <form method="post" action="/listings/<%=listing._id%>?_method=DELETE">
-        <button>delete listing</button>
-    </form>
+    </ul> -->
+
+
+    
 </body>
-</html>
