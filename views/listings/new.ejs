@@ -8,28 +8,32 @@
 
  <h2 class="mt-2"> Creat Your New Listing</h2>
  
-    <form method="post"  action="/listings">
+    <form method="post"  action="/listings" class="needs-validation" novalidate >
         <div class="mb-2">
                <label for="title" class="form-label"> Title </label>
-               <input type="text" placeholder="enter your title" name="listing[title] " class="form-control">
+               <input type="text" placeholder="enter your title" name="listing[title] " class="form-control" required>
+                 <div class="valid-feedback"> looking good !</div>
         </div>
        
           <div class="mb-2">
             <label for="discription" class="form-label"> Discription </label>
-            <textarea type="text"  name="listing[discription]"  class="form-control">enter your discription.. </textarea>
+            <textarea type="text"  name="listing[discription]"  class="form-control" required>enter your discription.. </textarea>
+              <div class="invalid-feedback"> discription should be valid and correct !</div>
           </div>
 
 
           <div class="mb-2">
              <label for="image-filename" class="form-label"> Image-file-Name </label>
-           <input type="text" placeholder="Enter your image filename" name="listing[image][filename]" class="form-control">
+           <input type="text" placeholder="Enter your image filename" name="listing[image][filename]" class="form-control" required>
+             <div class="invalid-feedback"> image-file name should be valid and correct !</div>
 
           </div>
         
                 <div class="mb-2">
                             
                             <label for="image-url" class="form-label"> Image-URL </label>
-                            <input type="text" placeholder="Enter your image URL/link" name="listing[image][url]" class="form-control"> 
+                            <input type="text" placeholder="Enter your image URL/link" name="listing[image][url]" class="form-control" required> 
+                              <div class="invalid-feedback"> image-url/link should be valid and correct !</div>
 
                 </div>
 
@@ -38,13 +42,15 @@
            <div class="mb-2 col-5" >
                        
                       <label for="price" class="form-label"> Price </label>
-                      <input type="number" placeholder="enter your price" name="listing[price]" class="form-control">
+                      <input type="number" placeholder="enter your price" name="listing[price]" class="form-control" required>
+                        <div class="invalid-feedback"> price should be valid and correct !</div>
 
                 </div>
          
             <div class="mb-2 col-7">
                   <label for="location" class="form-label"> Location </label>
-              <input type="text" placeholder="enter your location" name="listing[location]" class="form-control">
+              <input type="text" placeholder="enter your location" name="listing[location]" class="form-control" required>
+                <div class="invalid-feedback">   location should be valid and correct !</div>
 
             </div>
 
@@ -52,7 +58,8 @@
             <div class="mb-2">
 
                 <label for="country" class="form-label"> Country </label>
-                  <input type="text" placeholder="enter your country" name="listing[country]" class="form-control">
+                  <input type="text" placeholder="enter your country" name="listing[country]" class="form-control" required>
+                    <div class="invalid-feedback"> country should be valid and correct !</div>
             </div>
             
           <button class="btn btn-dark  add-btn">add listing </button>

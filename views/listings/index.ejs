@@ -1,10 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explorique Listings </title>
-</head> -->
+
 <% layout('/layouts/boilerplate') %>
 
 
@@ -24,9 +18,9 @@
      <div class="card-body">
 
        <p class="card-text">  <b><%= listing.title%> </b><br>
-        <%=listing.price.toLocaleString("en-IN")%>/night
+        <%= listing.price ? listing.price.toLocaleString("en-IN") : "Price not available" %>/night
+
        </p>
-       <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
       </div>
       </div>
 
@@ -35,16 +29,4 @@
        <% }%>
      </div>
 
-    
-      <!-- <% for(let listing of allListing){%>
-        
-          <a href="/listings/<%=listing._id%>"><li> <%= listing.title%></li> </a>
-        
-      <% }%> -->
-
-        
-
-    
-   
 </body>
-<!-- </html> -->

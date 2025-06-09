@@ -6,7 +6,9 @@ const Listing=require("./models/listing");
 const methodOverride=require("method-override");
 const path=require("path");
 const ejsMate=require("ejs-mate");
-
+const wrapAsync=require("./utils/wrapAsync");
+const ExpressError=require("./utils/ExpressError");
+const {listingSchema}=require("./schema.js");// for the schema validation
 
 app.listen(8080,()=>{
     console.log("server is listening on the port:8080");
@@ -33,6 +35,15 @@ async function main() {
 app.get("/",(req,res)=>{
     res.send("root is working well !!");
 });
+//*******************************for the schema validation(using the joi tools) *************************************** */
+ const validateListing=(req,res,next)=>{
+ let result=listingSchema.validate(req.body);// for the schema validation (using the joi tools)
+    if(result.error){
+        throw new ExpressError(404, result.error);
+    }else{
+        next();
+    }
+ };
 // app.get("/listingtest",async(req,res)=>{
 
 //     let listing1=await newListing.save();
@@ -40,47 +51,65 @@ app.get("/",(req,res)=>{
 // });
 
 // show all listings
-app.get("/listings", async (req,res)=>{
+app.get("/listings", wrapAsync(async (req,res)=>{
   let allListing= await Listing.find();
   res.render("./listings/index.ejs",{allListing});
 
-})
+}));
 // new listing
 app.get("/listings/new",(req,res)=>{
    res.render("./listings/new.ejs") ;
 })
 // show the specific listing
-app.get("/listings/:id",async(req,res)=>{
+app.get("/listings/:id", wrapAsync(async(req,res)=>{
     let {id}=req.params;
     let listing=await Listing.findById(id);
     res.render("./listings/show.ejs",{listing});
-})
+}));
 
 // post the listing to db
-app.post("/listings",async(req,res)=>{
+app.post("/listings",  validateListing,wrapAsync( async(req,res,next)=>{
+    //  if(!req.body.listing){
+    //     throw new ExpressError(404,"Send the valid listing data");
+    //  }
+
     let listing=req.body.listing;
-    // console.log(listing);
     let newlisting=new Listing(listing);
     await newlisting.save();
     res.redirect("/listings");
-})
+    
+}));
 
 // edit route
-app.get("/listings/:id/edit",async(req,res)=>{
+app.get("/listings/:id/edit",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     let listing=await Listing.findById(id);
     res.render("./listings/edit.ejs",{listing});
-})
+}));
 
 //update route
-app.patch("/listings/:id",async(req,res)=>{
+app.patch("/listings/:id", validateListing,wrapAsync(async(req,res)=>{
     let {id}=req.params;
    let newupdate=await Listing.findByIdAndUpdate(id, {...req.body.listing});
    res.redirect(`/listings/${id}`);
-})
+}));
 // delete route
-app.delete("/listings/:id",async(req,res)=>{
+app.delete("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     let deleteupdate=  await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
-})
+}));
+
+//**************************************** custom error handling (middleware function) *************************************************** */
+//************************ add ExpressError************* */
+
+// app.all("*",(req,res,next)=>{
+//     next(new ExpressError(404,"Page Not Found!"));
+// });
+
+app.use((err,req,res,next)=>{
+    let{statusCode=500,message="Something wend Wrong!"}=err;
+res.status(statusCode).render("error.ejs", {message });
+
+});
+
