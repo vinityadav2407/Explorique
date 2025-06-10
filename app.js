@@ -8,7 +8,8 @@ const path=require("path");
 const ejsMate=require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync");
 const ExpressError=require("./utils/ExpressError");
-const {listingSchema}=require("./schema.js");// for the schema validation
+const {listingSchema,reviewSchema}=require("./schema.js");// for the schema validation
+const Review=require("./models/reviews");
 
 app.listen(8080,()=>{
     console.log("server is listening on the port:8080");
@@ -44,6 +45,16 @@ app.get("/",(req,res)=>{
         next();
     }
  };
+
+
+ const validateReview=(req,res,next)=>{
+ let result=reviewSchema.validate(req.body);// for the schema validation (using the joi tools)
+    if(result.error){
+        throw new ExpressError(404, result.error);
+    }else{
+        next();
+    }
+ };
 // app.get("/listingtest",async(req,res)=>{
 
 //     let listing1=await newListing.save();
@@ -63,7 +74,7 @@ app.get("/listings/new",(req,res)=>{
 // show the specific listing
 app.get("/listings/:id", wrapAsync(async(req,res)=>{
     let {id}=req.params;
-    let listing=await Listing.findById(id);
+    let listing=await Listing.findById(id).populate("reviews");
     res.render("./listings/show.ejs",{listing});
 }));
 
@@ -98,6 +109,38 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
     let {id}=req.params;
     let deleteupdate=  await Listing.findByIdAndDelete(id);
     res.redirect("/listings");
+}));
+
+// Review Route
+//post route of reviews
+app.post("/listings/:id/reviews",validateReview,wrapAsync( async (req, res) => {
+  
+    const { id } = req.params;
+
+    // 1. Find the listing by ID
+    const listing = await Listing.findById(id);
+    // 2. Create new review
+    const newReview = new Review(req.body.review); 
+
+    // 3. Associate review with listing
+    listing.reviews.push(newReview);
+
+    // 4. Save both
+    await newReview.save();
+    await listing.save();
+
+    res.redirect(`/listings/${id}`);
+}));
+
+//Review Delete Routes** */
+app.delete("/listings/:id/reviews/:reviewId",wrapAsync(async(req,res)=>{
+
+    let {id,reviewId}=req.params;
+     await Listing.findByIdAndUpdate(id ,{$pull:{reviews:reviewId}});
+     await Review.findByIdAndDelete(reviewId);
+
+   res.redirect(`/listings/${id}`);
+
 }));
 
 //**************************************** custom error handling (middleware function) *************************************************** */

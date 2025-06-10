@@ -63,10 +63,11 @@ text-decoration: underline;
 color: blue;
 }
 /* ***************cards******************** */
-.card{
+.listing-card{
     /* margin-top: .5rem !important; */
  border: none !important;
  margin-bottom: 2rem !important;
+ color: #000 !important;
 }
 .card-img-top{
 border-radius: 1rem !important;
@@ -85,9 +86,11 @@ object-fit: cover !important;
 /***************************** card-effect************************* */
 .card-img-overlay{
     opacity: 0;
+  
 }
 
 .card-img-overlay:hover{
+    
     opacity: 0.2;
     background-color: white;
 }
@@ -108,4 +111,8 @@ object-fit: cover !important;
 }
 .show-listing{
     font-weight: 600;
+}
+/* *************** reviewsCars style************** */
+.reveiwsCards{
+    border: 2px,solid lightslategray !important;
 }
