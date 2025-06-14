@@ -73,6 +73,7 @@ app.get("/",(req,res)=>{
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
      res.locals.error=req.flash("error");
+     res.locals.currUser=req.user; // we add the current session user to local variable so we can access it in includes folder
     next();
 });
 // to use the listings route from the lising file

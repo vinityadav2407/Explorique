@@ -15,7 +15,8 @@ const initData=require("./data");
 const Listing=require("../models/listing");
 
 const initDB= async()=>{
-    // await Listing.deleteMany({});
+    await Listing.deleteMany({});
+    initData.data=initData.data.map((obj)=>({...obj, owner:"684dbab66ee38033b0dac7bd"}));
      await Listing.insertMany(initData.data);
 };
 
