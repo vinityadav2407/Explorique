@@ -10,10 +10,14 @@ const wrapAsync=require("./utils/wrapAsync");
 const ExpressError=require("./utils/ExpressError");
 const {listingSchema,reviewSchema}=require("./schema.js");// for the schema validation
 const Review=require("./models/reviews");
-const listings=require("./routes/listing.js");
-const reviews=require("./routes/review.js");
+const listingsRouter=require("./routes/listing.js");
+const reviewsRouter=require("./routes/review.js");
 const session=require("express-session");
 const flash=require("connect-flash");
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+const User=require("./models/user.js");
+const userRouter=require("./routes/user.js");
 
 app.listen(8080,()=>{
     console.log("server is listening on the port:8080");
@@ -40,6 +44,16 @@ const sessionOptions={
 app.use(session(sessionOptions));
 app.use(flash());
 
+// used for the authentication of the user and stored session to browser provide
+//  yah by default users and password+salt+hash kar deta hai anu saht me addition method bhi add kar deta hai
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 const mongoose=require("mongoose");
 
 main().then(()=>{
@@ -62,10 +76,11 @@ app.use((req,res,next)=>{
     next();
 });
 // to use the listings route from the lising file
-app.use("/listings" ,listings);
+app.use("/listings" ,listingsRouter);
 
-app.use("/listings/:id/reviews" ,reviews);
+app.use("/listings/:id/reviews" ,reviewsRouter);
 
+app.use("/",userRouter);
 // app.get("/listingtest",async(req,res)=>{
 
 //     let listing1=await newListing.save();
