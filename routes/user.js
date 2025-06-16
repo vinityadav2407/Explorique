@@ -10,7 +10,7 @@ const passport=require("passport");
 const {saveRedirectUrl}=require("../middleware.js");// redirect url middleware
 
 router.get("/signup",async(req,res)=>{
-res.render("users/signup.ejs");
+res.render("users/user.ejs");
 
 });
 

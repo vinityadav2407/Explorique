@@ -14,6 +14,21 @@ const {listingSchema,reviewSchema}=require("./schema.js");
     }
  };
 
+
+ // this will run between multer and validateListing
+module.exports.mergeImageData = (req, res, next) => {
+      // Prepare nested req.body.listing if it doesn't exist
+    if (!req.body.listing) req.body.listing = {};
+   // Insert file data into req.body.listing.image
+    if (req.file) {
+        req.body.listing.image = {
+            url: req.file.path,
+            filename: req.file.filename,
+        };
+    }
+    next();
+};
+
 //*******************************for the schema validation(using the joi tools) *************************************** */
  module.exports.validateReview=(req,res,next)=>{
  let result=reviewSchema.validate(req.body);// for the schema validation (using the joi tools)

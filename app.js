@@ -1,3 +1,10 @@
+// Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env
+if(process.env.NODE_ENV !=" production"){
+
+require('dotenv').config()
+// console.log(process.env) 
+}
+
 const express=require("express");
 const app=express();
 
@@ -13,11 +20,14 @@ const Review=require("./models/reviews");
 const listingsRouter=require("./routes/listing.js");
 const reviewsRouter=require("./routes/review.js");
 const session=require("express-session");
+const MongoStore=require("connect-mongo");
+
 const flash=require("connect-flash");
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const User=require("./models/user.js");
 const userRouter=require("./routes/user.js");
+const dburl=process.env.MONGODB_ATLAS_URL;
 
 app.listen(8080,()=>{
     console.log("server is listening on the port:8080");
@@ -31,8 +41,22 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
 
 //*********Implementaion of the cookies and the sessions of the website into the browser************ */
+ // for the mongodb session
+ const store=MongoStore.create({
+    mongoUrl:dburl,
+    crypto:{
+        secret:process.env.SECRET,
+    },
+    touchAfter:24*3600,
+
+ });
+ store.on("error",()=>{
+    console.log("ERROR INTO THE MONGO SESSION STORE",error);
+ });
+ // for the expression session
 const sessionOptions={
-    secret:"Do'tTuchDangerofPrivacy",
+    store,
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
     cookie:{
@@ -62,7 +86,7 @@ main().then(()=>{
     console.log(err);
 });
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/Explorique');
+    await mongoose.connect(dburl);
 }
 
 app.get("/",(req,res)=>{
@@ -74,7 +98,8 @@ app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
      res.locals.error=req.flash("error");
      res.locals.currUser=req.user; // we add the current session user to local variable so we can access it in includes folder
-    next();
+     res.locals.googleKey = process.env.GOOGLE_API_KEY;
+     next();
 });
 // to use the listings route from the lising file
 app.use("/listings" ,listingsRouter);
@@ -97,6 +122,7 @@ app.use("/",userRouter);
 // app.all("*",(req,res,next)=>{
 //     next(new ExpressError(404,"Page Not Found!"));
 // });
+
 
 app.use((err,req,res,next)=>{
     let{statusCode=500,message="Something wend Wrong!"}=err;

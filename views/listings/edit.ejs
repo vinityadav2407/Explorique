@@ -6,7 +6,7 @@
       <div class="row">
         <div class="col-6 offset-3">
      <h3 class="mt-2"> Edit your  listing</h3>
-    <form method="post"  action="/listings/<%=listing._id%>?_method=PATCH"  class="needs-validation" novalidate>
+    <form method="post"  action="/listings/<%=listing._id%>?_method=PATCH"  class="needs-validation" novalidate enctype="multipart/form-data">
 
         <div class="mb-2">
                <label for="title" class="form-label"> Title </label>
@@ -22,16 +22,20 @@
                   <div class="invalid-feedback"> discription should be correct !</div>
             </div>
       
-            <div class="mb-2">
+            <!-- <div class="mb-2">
                  <label for="image-filename" class="form-label"> Image-file-Name </label>
                 <input type="text" value="<%=listing.image.filename%>"  name="listing[image][filename]" class="form-control" required>
                      <div class="invalid-feedback"> image-file name should be correct and valid !</div>
             </div>
 
         <div class="mb-2">
-            <label for="image-url" class="form-label"> Image-URL  </label>
+            <label for="image-url" class="form-label"> Image-URL </label>
             <input type="text"  value="<%=listing.image.url%>"  name="listing[image][url]" class="form-control" required>
-                     <div class="invalid-feedback"> url should be correct and valid !</div>
+            <div class="invalid-feedback"> url should be correct and valid !</div>
+        </div> -->
+         <div class="mb-2">
+            <label for="image" class="form-label"> Upload Listing Image  </label>
+            <input type="file"  value="<%=listing.image.url%>"  name="listing[image]" class="form-control">
         </div>
 
         <div class="row">
