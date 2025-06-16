@@ -89,9 +89,9 @@ async function main() {
     await mongoose.connect(dburl);
 }
 
-app.get("/",(req,res)=>{
-    res.send("root is working well !!");
-});
+// app.get("/",(req,res)=>{
+//     res.send("root is working well !!");
+// });
 
 //*********** to save the cookies to the local temperory storage ******** */
 app.use((req,res,next)=>{
