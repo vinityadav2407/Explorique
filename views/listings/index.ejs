@@ -4,11 +4,11 @@
 
 <body>
     <!-- <h3>All listings !! </h3> -->
-     <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1">
+     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
        <% for(let listing of allListing){%>
         <a href="/listings/<%=listing._id%> " class="listing-links"> 
   <div class="card listing-card" >
-     <img src="<%= listing.image.url%>" class="card-img-top" alt="listing-img" style="height: 20rem;">
+     <img src="<%= listing.image.url%>" class="card-img-top" alt="listing-img" style="height: 20rem; ">
   
      <div class="card-img-overlay"> click it
     <!-- <h5 class="card-title">Card title</h5>
