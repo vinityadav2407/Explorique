@@ -20,7 +20,7 @@ const Review=require("./models/reviews");
 const listingsRouter=require("./routes/listing.js");
 const reviewsRouter=require("./routes/review.js");
 const session=require("express-session");
-const MongoStore=require("connect-mongo");
+const MongoStore=require("connect-mongo");// for the store the session into the mongodb
 
 const flash=require("connect-flash");
 const passport=require("passport");
