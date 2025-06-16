@@ -89,9 +89,8 @@ async function main() {
     await mongoose.connect(dburl);
 }
 
-// app.get("/",(req,res)=>{
-//     res.send("root is working well !!");
-// });
+
+
 
 //*********** to save the cookies to the local temperory storage ******** */
 app.use((req,res,next)=>{
@@ -107,13 +106,16 @@ app.use("/listings" ,listingsRouter);
 app.use("/listings/:id/reviews" ,reviewsRouter);
 
 app.use("/",userRouter);
-// app.get("/listingtest",async(req,res)=>{
+app.get("/listingtest",async(req,res)=>{
 
-//     let listing1=await newListing.save();
-//     res.send("data save to dabase successfully");
-// });
+    let listing1=await newListing.save();
+    res.send("data save to dabase successfully");
+});
 
-
+app.get("/", wrapAsync(async (req, res) => {
+    const allListing = await Listing.find();
+    res.render("listings/index", { allListing });  // ✅ No leading slash, no .ejs
+}));
 
 
 //**************************************** custom error handling (middleware function) *************************************************** */
