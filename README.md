@@ -27,7 +27,7 @@ Explorique is a fully-featured travel stay listing platform, developed as a majo
 
 ## 🎥 Video
 
-[🎬 Click here to watch the video demo](https://explorique-1.onrender.com/video/demo.mp4)
+[🎬 Click here to watch the video demo](https://github.com/vinityadav2407/project-demo-video/blob/main/demo.mp4)
 
 
 ## 🛠️ Tech Stack
