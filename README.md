@@ -25,6 +25,10 @@ Explorique is a fully-featured travel stay listing platform, developed as a majo
 - MongoDB Atlas for Database
 - Responsive Frontend (EJS + Bootstrap)
 
+## 🎥 Video
+
+[🎬 Click here to watch the video demo](https://explorique-1.onrender.com/video/demo.mp4)
+
 
 ## 🛠️ Tech Stack
 
@@ -70,7 +74,7 @@ Visit: http://localhost:8080
 ## 👨‍💻 Author
 - **@Vinit Yadav**,
 LinkedIn Profile: [LinkedIn](linkedin.com/in/vinit-yadav-4b4753237)
-## 📸 Screenshots
+## 📸 See live
 - **Visit the my project:** [Explorique.com](https://explorique-1.onrender.com)
 
 ## 📄 License
