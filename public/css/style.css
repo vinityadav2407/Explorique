@@ -1,22 +1,29 @@
-body{
+
+body {
     display: flex;
     flex-direction: column;
-     height: 100vh;  /**100vh** means 100% of the viewport height. */
-}
-.container{
-    flex:1;
+    min-height: 100vh; /* allow natural growth */
 }
 
-.navbar{
+.container {
+    flex: 1;
+}
+
+.navbar {
     background-color: white !important;
     color: #000 !important;
     font-weight: 700 !important;
+    z-index: 1050 !important;
+    position: sticky; /* Ensure stickiness */
+    top: 0; /* Required for sticky */
 }
-.nav-link{
-      color: #000 !important;
+
+.nav-link {
+    color: #000 !important;
     font-weight: 600 !important;
 }
 
+ 
 /***************** footer *************************** */
 
 .f-footer{
